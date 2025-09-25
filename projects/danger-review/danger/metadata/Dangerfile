@@ -1,0 +1,22 @@
+def disabled_rules_from_description
+	match = gitlab.mr_json['description'].match(/\[danger-disable:\s*([^\]]+)\]/)
+	return [] unless match
+
+	match[1].split(',').map(&:strip)
+end
+
+if !(/[A-Z]{2,}-\d+/i =~ gitlab.mr_title) && !disabled_rules_from_description.include?('jira-ticket-required')
+	fail 'Merge request title must contain a Jira ticket'
+end
+
+if gitlab.mr_json['title'].length > 72
+  warn 'Merge request title should be less than 72 characters.'
+end
+
+if gitlab.mr_json['assignees'].empty?
+  fail 'Merge request must have assignees'
+end
+
+if !gitlab.mr_json['draft'] && gitlab.mr_json['reviewers'].empty?
+	fail 'Merge request must have reviewers if marked as ready'
+end

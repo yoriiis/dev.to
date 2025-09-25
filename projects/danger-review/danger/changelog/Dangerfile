@@ -1,0 +1,32 @@
+files = (git.added_files + git.modified_files)
+has_error = false
+
+def disabled_rules_from_description
+	cleaned_description = gitlab.mr_json['description'].gsub('\\[', '[').gsub('\\]', ']')
+	match = cleaned_description.match(/\[danger-disable:\s*([^\]]+)\]/)
+	return [] unless match
+
+	match[1].split(',').map(&:strip)
+end
+
+if files.include?('CHANGELOG.md')
+  diff = git.diff_for_file('CHANGELOG.md')
+  unless diff.patch.include?("[##{gitlab.mr_json['iid']}](#{gitlab.mr_json['web_url']})")
+    fail 'Changelog entry must include the merge request link.'
+  end
+else
+  fail '"CHANGELOG.md" file is missing in GIT diff, version needs to be bump.'
+end
+
+if disabled_rules_from_description.include?('changelog-required')
+	return false
+end
+
+if has_error
+	markdown <<-MARKDOWN
+Here's an example of a CHANGELOG.md entry:
+```markdown
+- #{gitlab.mr_title} ([##{gitlab.mr_json['iid']}](#{gitlab.mr_json['web_url']}))
+```
+MARKDOWN
+end

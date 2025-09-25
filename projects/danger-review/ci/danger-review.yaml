@@ -1,0 +1,12 @@
+.danger-review:
+  image: ruby:3.3.0
+  variables:
+    CONFIG_PATH: 'Dangerfile'
+    GIT_STRATEGY: fetch
+    GIT_DEPTH: 0
+  script:
+    - gem install danger --version 9.5.1
+    - gem install danger-gitlab --version 8.0.0
+    - danger --verbose --fail-on-errors=true --dangerfile=${CONFIG_PATH}
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
