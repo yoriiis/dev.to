@@ -1,0 +1,28 @@
+{
+	"name": "types",
+	"private": true,
+	"description": "Types project",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/yoriiis/prime-types"
+	},
+	"license": "MIT",
+	"author": "Yoriiis",
+	"type": "module",
+	"workspaces": [
+		"./types/*"
+	],
+	"scripts": {
+		"lint": "biome check",
+		"dev": "rm -rf ./lib && tsc --noEmit --watch",
+		"test": "biome check && rm -rf ./lib && tsc --noEmit"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"prettier": "3.5.3",
+		"typescript": "5.8.3"
+	},
+	"engines": {
+		"node": ">=22"
+	}
+}

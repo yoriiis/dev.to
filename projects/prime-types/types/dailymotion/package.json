@@ -1,0 +1,20 @@
+{
+	"name": "@prime-types/dailymotion",
+	"version": "1.0.0",
+	"description": "TypeScript types for Dailymotion",
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./index.d.ts",
+			"default": "./index.d.ts"
+		}
+	},
+	"main": "./index.d.ts",
+	"types": "./index.d.ts",
+	"devDependencies": {
+		"typescript": "5.8.3"
+	},
+	"engines": {
+		"node": ">=22"
+	}
+}

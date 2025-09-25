@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"outDir": "./lib",
+		"moduleResolution": "bundler",
+		"allowJs": true,
+		"checkJs": false,
+		"target": "ESNext",
+		"lib": ["DOM.Iterable", "es2017", "dom"],
+		"strict": true,
+		"esModuleInterop": true,
+		"declaration": false,
+		"skipLibCheck": true,
+		"allowSyntheticDefaultImports": true,
+		"module": "ESNext",
+		"baseUrl": "./",
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true,
+		"jsxFragmentFactory": "",
+		"paths": {}
+	},
+	"include": ["**/*.ts"]
+}
