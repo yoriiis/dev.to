@@ -7,7 +7,7 @@
 - [Error]: Merge request must have assignees
 - [Error]: Merge request must have reviewers if marked as ready
 
-### Désactivation des règles
+### Rule deactivation
 
 Rules with the rule name can be ignored with adding the following text in the merge request desrciption.
 

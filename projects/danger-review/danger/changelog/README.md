@@ -4,7 +4,7 @@
 
 - [Error]: Changelog must be updated and contain a link to the merge request (rule name : `changelog-required`)
 
-### Désactivation des règles
+### Rule deactivation
 
 Rules with the rule name can be ignored with adding the following text in the merge request desrciption.
 
