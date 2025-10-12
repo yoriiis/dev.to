@@ -1,0 +1,8 @@
+include:
+  - local: '/npm-install/npm-install.yml'
+  - local: '/npm-build/npm-build.yml'
+  - local: '/npm-qa/npm-qa.yml'
+  - local: '/npm-unit-test/npm-unit-test.yml'
+  - local: '/npm-pack/npm-pack.yml'
+  - local: '/npm-publish/npm-publish.yml'
+  - local: '/create-tag/create-tag.yml'

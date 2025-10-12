@@ -1,0 +1,21 @@
+include:
+  - local: '/common/common.yml'
+
+.npm-pack:
+  variables:
+    PACKAGES_DIR: 'npm-pack-packages'
+  extends:
+    - .default
+    - .cache-npm
+  image: ${NODE_IMAGE}
+  script:
+    - cd ${WORKING_DIRECTORY}
+    - mkdir $PACKAGES_DIR
+    - PACKAGE_TGZ=$(npm pack)
+    - mv "$PACKAGE_TGZ" $PACKAGES_DIR
+  artifacts:
+    paths:
+      - $WORKING_DIRECTORY/$PACKAGES_DIR
+  when: manual
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'

@@ -1,0 +1,15 @@
+include:
+  - local: '/common/common.yml'
+
+.npm-install:
+  extends:
+    - .default
+    - .cache-npm
+  image: ${NODE_IMAGE}
+  cache:
+    policy: pull-push
+  script:
+    - cd ${WORKING_DIRECTORY}
+    - npm ci
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_COMMIT_REF_NAME == $MAIN_BRANCH

@@ -1,0 +1,25 @@
+variables:
+  MAIN_BRANCH: main
+  NODE_IMAGE: node:22-alpine
+  WORKING_DIRECTORY: ./
+
+.default:
+  variables:
+    FF_USE_FASTZIP: 'true' # Optimize cache/artifact compression
+  interruptible: true
+  artifacts:
+    expire_in: 3 days
+  retry:
+    max: 2
+    when:
+      - runner_system_failure
+      - stuck_or_timeout_failure
+
+.cache-npm:
+  cache:
+    key:
+      files:
+        - ${WORKING_DIRECTORY}/package-lock.json
+    paths:
+      - ${WORKING_DIRECTORY}/node_modules
+    policy: pull

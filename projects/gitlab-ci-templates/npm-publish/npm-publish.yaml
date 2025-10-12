@@ -1,0 +1,15 @@
+include:
+  - local: '/common/common.yml'
+
+.npm-publish:
+  variables:
+    NPMRC_REGISTRY_KEY:
+  extends:
+    - .default
+  image: ${NODE_IMAGE}
+  script:
+    - npm publish
+  allow_failure: false
+  when: manual
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $MAIN_BRANCH

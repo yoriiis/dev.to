@@ -1,0 +1,15 @@
+include:
+  - local: '/common/common.yml'
+
+.npm-build:
+  variables:
+    COMMAND: 'npm run build'
+  extends:
+    - .default
+    - .cache-npm
+  image: ${NODE_IMAGE}
+  script:
+    - cd ${WORKING_DIRECTORY}
+    - ${COMMAND}
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_COMMIT_REF_NAME == $MAIN_BRANCH
