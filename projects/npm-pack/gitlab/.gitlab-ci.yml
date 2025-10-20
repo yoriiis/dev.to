@@ -1,0 +1,17 @@
+npm-pack:
+  variables:
+    PACKAGES_DIR: 'npm-pack-packages'
+  image: node:22-alpine
+  script:
+    - npm ci
+    - npm run test
+    - npm run build
+    - mkdir $PACKAGES_DIR
+    - PACKAGE_TGZ=$(npm pack)
+    - mv "$PACKAGE_TGZ" $PACKAGES_DIR
+  artifacts:
+    paths:
+      - $PACKAGES_DIR
+  when: manual
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
