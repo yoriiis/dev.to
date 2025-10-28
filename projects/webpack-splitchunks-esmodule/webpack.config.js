@@ -15,9 +15,9 @@ const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath)
  *
  * @returns {Object} Object with the Webpack base configuration
  */
-const generateWebpackConfig = ({ type, isProduction, presets }) => {
+const generateWebpackConfig = ({ browsers, isProduction, presets }) => {
 	return {
-		name: type,
+		name: browsers,
 		watch: !isProduction,
 		devtool: !isProduction ? 'source-map' : false,
 		entry: {
@@ -25,7 +25,7 @@ const generateWebpackConfig = ({ type, isProduction, presets }) => {
 			news: './src/news.js'
 		},
 		output: {
-			path: resolveApp(`./dist/assets/${type}`),
+			path: resolveApp(`./dist/${browsers}`),
 			filename: '[name].js',
 			sourceMapFilename: '[file].map'
 		},
@@ -64,7 +64,7 @@ const generateWebpackConfig = ({ type, isProduction, presets }) => {
 				filename: 'templates/[name]-[type].html.twig',
 				templateStyle: (name) => `<link rel="stylesheet" href="https://cdn.domain.com${name}" />`,
 				templateScript: (name, entryName) => {
-					if (type === 'modern') {
+					if (browsers === 'modern') {
 						return `<script type="module" src="${name}"></script>`
 					}
 					return `<script nomodule defer src="${name}"></script>`
@@ -91,7 +91,7 @@ export default (env, argv) => {
 	const isProduction = argv.mode === 'production'
 
 	const configModern = generateWebpackConfig({
-		type: 'modern',
+		browsers: 'modern',
 		isProduction,
 		presets: [
 			[
@@ -106,7 +106,7 @@ export default (env, argv) => {
 	})
 
 	const configLegacy = generateWebpackConfig({
-		type: 'legacy',
+		browsers: 'legacy',
 		isProduction,
 		presets: [
 			[
